@@ -39,6 +39,12 @@
         .container {
             display: flex;
             flex: 1;
+            /* 給 container 上下間距，讓 main 區塊在 container 內部也能有空間 */
+            padding-top: 20px;
+            padding-bottom: 20px;
+            /* 讓 container 的左右也有間距，將內容往內縮一些 */
+            padding-left: 20px; /* 這裡可以控制整個內容區域（側邊欄+主內容）的左邊距 */
+            padding-right: 20px; /* 這裡可以控制整個內容區域（側邊欄+主內容）的右邊距 */
         }
 
         nav {
@@ -46,6 +52,9 @@
             background-color: #eee;
             padding: 20px;
             box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            border-radius: 8px; /* 讓側邊欄也有圓角 */
+            /* 調整側邊欄的右邊距，與主內容區塊分離 */
+            margin-right: 20px;
         }
 
         nav ul {
@@ -75,11 +84,17 @@
 
         main {
             flex: 1;
-            padding: 20px;
+            padding: 30px; /* 內容與邊框的內邊距維持 */
             background-color: white;
-            margin-left: 20px; /* 為了讓內容區塊與側邊欄有間距 */
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             border-radius: 8px;
+
+            /* 調整 main 元素本身的間距（外邊距） */
+            /* 因為 container 已經有左右 padding，所以 main 不需要額外的 margin-left/right */
+            /* margin-left 已經在 nav 設置 margin-right 替代 */
+            /* margin-top 和 margin-bottom 讓它與 header 和 footer 有距離 */
+            /* margin-top: 20px;  這裡不直接設定，因為 container 已經有 padding-top */
+            /* margin-bottom: 20px; 這裡不直接設定，因為 container 已經有 padding-bottom */
         }
 
         footer {
@@ -89,7 +104,7 @@
             padding: 10px 20px;
             font-size: 12px;
             box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
-            margin-top: auto; /* 將頁尾推到底部 */
+            margin-top: auto;
         }
     </style>
 </head>
