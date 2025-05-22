@@ -85,6 +85,25 @@ body {
             border-radius: 8px;
         }
 
+        .start {
+            position: relative;
+            left: 46%;
+            width: 90px;
+            bottom: -500px;
+            background-color: #8b95a2;
+            text-decoration: none;
+            color: #e7e7e7;
+            text-align: center;
+            padding: 8px 10px;
+            display: block;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .start:hover {
+            background-color: #555d68;
+        }
+
         footer {
             background-color: #384b61;
             color: white;
