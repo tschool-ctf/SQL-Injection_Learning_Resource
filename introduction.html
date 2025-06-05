@@ -18,26 +18,42 @@
         <nav>
             <ul>
                 <li><a href="index.html">首頁</a></li>
-                <li><a href="introduction.html" class="active">＿＿＿介紹</a></li>
-                <li><a href="types.html">＿＿＿種類說明</a></li>
-                <li><a href="applications.html">＿＿＿應用舉例</a></li>
-                <li><a href="test1.html">＿＿＿題目 1</a></li>
-                <li><a href="write-up1.html">＿＿＿講解 1</a></li>
-                <li><a href="test2.html">＿＿＿題目 2</a></li>
-                <li><a href="write-up2.html">＿＿＿講解 2</a></li>
+                <li><a href="introduction.html" class="active">SQL injection 介紹</a></li>
+                <li><a href="types.html">SQL injection 種類說明</a></li>
+                <li><a href="applications.html">SQL injection 應用舉例</a></li>
+                <li><a href="test1.html">SQL injection 題目 1</a></li>
+                <li><a href="write-up1.html">SQL injection 講解 1</a></li>
+                <li><a href="test2.html">SQL injection 題目 2</a></li>
+                <li><a href="write-up2.html">SQL injection 講解 2</a></li>
                 <li><a href="learn-more.html">延伸閱讀</a></li>
             </ul>
         </nav>
 
         <main>
-            <h2>簡報內容區塊</h2>
-            <p>
-                您可以在這裡放入您的簡報內容。這是一個範例段落，您可以根據您的需求新增更多文字、圖片、圖表或任何其他 HTML 元素。
-            </p>
-            <p>
-                這個區塊的內容會隨著您點擊左側側邊欄的分頁而改變（這需要 JavaScript 實現，此範本僅提供基礎 HTML 結構）。
-            </p>
-            </main>
+            <h2>什麼是 SQL Injection (SQL 資料隱碼攻擊)？</h2>
+            <p>想像一下，每個網站、每個 App 背後，都有一個巨大的「<strong>資料庫</strong>」。這個資料庫就像一個超大型圖書館，裡面存放著各式各樣的資訊，像是你的帳號、密碼、遊戲分數、商品資訊等等。</p>
+            <p>而要跟這個圖書館溝通，我們需要一套特別的語言，它叫做「<strong>SQL (Structured Query Language)</strong>」，也就是「結構化查詢語言」。網站程式會用 SQL 語句來跟資料庫說：「請給我某某用戶的資料」、「請幫我把這筆訂單存起來」等等。</p>
+            <p>那麼，「<strong>SQL Injection</strong>」是什麼呢？</p>
+            <p>它是一種駭客攻擊手法，就像駭客發現了這個圖書館的「<strong>後門</strong>」或是「<strong>漏洞</strong>」。原本，網站程式只會讓你在特定的「輸入欄位」輸入資料（例如登入頁面的帳號密碼欄、搜尋框等等）。但是，如果網站程式在處理這些輸入資料時不夠小心，沒有好好檢查你輸入的內容，駭客就有機會利用這個漏洞，<strong>偷偷地在你的輸入內容中，夾帶一些惡意的 SQL 語句</strong>。</p>
+            <p>當這些惡意的 SQL 語句隨著你的輸入一起傳送給資料庫時，資料庫就會「誤以為」這些惡意的指令是網站程式發出的正常指令，然後就照著執行了！</p>
+            <div class="example-box">
+                <p>這就像是：</p>
+                <ol>
+                    <li>你到圖書館借書，在借書單上寫下書名。</li>
+                    <li>正常的圖書館員會檢查你的書名，然後給你對應的書。</li>
+                    <li>但如果圖書館員不小心，而你又在書名欄位偷偷寫下：「請把我隔壁同學的借書記錄都刪掉！」</li>
+                    <li>結果，圖書館員真的照辦了，把同學的借書記錄都刪除了！這就是一個「意外」的結果。</li>
+                </ol>
+            </div>
+            <p>在 SQL Injection 的情況下，這個「意外」的結果可能非常嚴重：</p>
+            <ul>
+                <li><strong>繞過登入</strong>：駭客不需要正確的帳號密碼就能登入系統。</li>
+                <li><strong>竊取資料</strong>：把資料庫裡面的用戶資料、信用卡號碼、隱私資訊等都偷走。</li>
+                <li><strong>竄改資料</strong>：修改、刪除資料庫裡的資料，例如修改網站內容、刪除用戶帳號。</li>
+                <li><strong>甚至控制整個伺服器</strong>：在某些極端情況下，駭客甚至可以透過 SQL Injection 獲得伺服器（運行網站的電腦）的控制權。</li>
+            </ul>
+            <p>所以，SQL Injection 是一種非常危險的攻擊，它直接利用了網站程式和資料庫溝通時的盲點。了解它的原理，就能幫助我們更好地防範這種攻擊，保護網路世界的安全！</p>
+        </div>
     </div>
 
     <footer>
