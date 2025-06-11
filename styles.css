@@ -264,6 +264,7 @@ main li {
 /* 方框內部內容的樣式（標題和描述文字） */
 .box-content {
     position: absolute; /* 內容絕對定位在方框內 */
+    transform: translateX(-5%); /* 水平居中 */
     top: 0;
     left: 0;
     width: 100%;
@@ -275,17 +276,18 @@ main li {
     padding: 20px; /* 內容內邊距 */
     text-align: center; /* 確保文字本身也是置中的 */
     color: #333; /* 文字顏色 */
+    background-color: #e8f1f8;
 }
 
 .box-content h3 {
-    margin-top: 0; /* 移除標題預設的上邊距 */
-    color: #007bff; /* 標題顏色 */
-    font-size: 0.8em; /* 標題字體大小 */
-    margin-bottom: 10px; /* 標題下方與描述文字的間距 */
+    margin-top: -60px; /* 移除標題預設的上邊距 */
+    color: #2d5e91; /* 標題顏色 */
+    font-size: 0.75em; /* 標題字體大小 */
+    margin-bottom: 30px; /* 標題下方與描述文字的間距 */
 }
 
 .box-content p {
-    font-size: 0.95em; /* 描述文字字體大小 */
+    font-size: 0.65em; /* 描述文字字體大小 */
     color: #555; /* 描述文字顏色 */
     margin-bottom: 0; /* 移除段落預設底部外邊距 */
 }
