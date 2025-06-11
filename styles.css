@@ -143,7 +143,6 @@ main {
     position: relative;
     left: 46%;
     width: 90px;
-    bottom: -10%; /* 這個定位在新的排版中可能需要調整，確保它在所有內容下方 */
     background-color: #8b95a2;
     text-decoration: none;
     color: #e7e7e7;
@@ -153,10 +152,9 @@ main {
     border-radius: 4px;
     transition: background-color 0.3s ease;
     /* 調整此按鈕的定位，讓它在所有內容之後 */
-    margin-top: 50px; /* 增加與上方內容的間距 */
+    margin-top: -10px; /* 增加與上方內容的間距 */
     left: 50%;
     transform: translateX(-50%); /* 水平居中 */
-    bottom: auto; /* 移除絕對定位的 bottom */
     font-size: 20px;
 }
 
@@ -212,7 +210,6 @@ main strong {
     color: #d9534f; /* A strong red for emphasis */
 }
 main > ul {
-    list-style-type: disc;
     margin-left: -10px;
     margin-bottom: 15px;
     list-style-type:none;

@@ -32,35 +32,50 @@
         <main>
             <h2>SQL Injection 的應用舉例：駭客能做些什麼？</h2>
             <p>我們已經知道 SQL Injection 是一種攻擊資料庫的方法，但駭客到底能用它來做什麼壞事呢？這裡我們就來看看幾個常見的「應用舉例」，也就是駭客實際利用 SQL Injection 來達成的攻擊目的。</p>
-
-            <h3>1. 登入繞過 (Login Bypass)</h3>
-            <p>這是 SQL Injection 最經典也最容易理解的應用之一。</p>
-            <ul>
-                <li><strong>正常情況下：</strong> 當你登入網站時，你會輸入帳號和密碼。網站後台會用 SQL 語句去資料庫裡查詢：「有沒有一個帳號是 XXX，而且密碼也是 YYY 的使用者？」如果找到了，就讓你登入；找不到就顯示密碼錯誤。</li>
-                <li><strong>駭客怎麼玩？</strong> 駭客不需要知道你的正確密碼！他們會利用 SQL Injection，在帳號或密碼欄位輸入一些特殊的符號和語句，例如輸入 <code>' OR 1=1--</code>。</li>
-                <li><strong>發生了什麼？</strong> 當這個惡意輸入被加到原本的 SQL 語句中時，資料庫會讀到類似這樣的意思：「給我所有帳號是 XXX <strong>或者</strong> 條件 1=1 成立的使用者！」因為 <code>1=1</code> 永遠都是真的，所以資料庫就會直接回傳「是！找到了使用者！」而不需要驗證密碼。駭客就能直接登入系統，就像拿到了一把萬能鑰匙一樣。</li>
-                <li class="example-box"><strong>後果：</strong> 駭客可以輕易進入你的帳號，或者任何沒有被妥善保護的後台系統。</li>
-            </ul>
-
-            <h3>2. 竊取敏感資料 (Stealing Sensitive Data)</h3>
-            <p>這是 SQL Injection 最危險的應用之一，也是駭客最常追求的目標。</p>
-            <ul>
-                <li><strong>正常情況下：</strong> 網站只會顯示它設計好讓你看到的資料，例如你的個人檔案、訂單歷史等。</li>
-                <li><strong>駭客怎麼玩？</strong> 駭客會利用前面提到的「<strong>Union-based SQL Injection</strong>」技術。他們會想辦法找到網站中的某個查詢功能，然後透過注入惡意語句，讓網站程式去執行一個額外的 SQL 查詢，這個查詢的目標是資料庫中那些存放敏感資訊的表格。</li>
-                <li><strong>發生了什麼？</strong> 駭客可以要求資料庫回傳例如所有用戶的帳號、經過加密的密碼（稱為「雜湊值」）、電子郵件、信用卡號碼，甚至是管理員的資訊。這些敏感資料會被「混」在正常顯示的網頁內容中，或者駭客可以透過一些工具把它們提取出來。</li>
-                <li class="example-box"><strong>後果：</strong> 你的個人隱私資訊、金融資料、遊戲道具等等都可能被盜取。這些資料可能被拿去販賣、進行詐騙，或者被用於其他的惡意行為。</li>
-            </ul>
-
-            <h3>3. 網站內容竄改或破壞 (Website Content Tampering or Defacement)</h3>
-            <p>除了竊取資料，駭客也可以利用 SQL Injection 來改變或破壞網站的內容。</p>
-            <ul>
-                <li><strong>正常情況下：</strong> 網站的新聞、部落格文章、產品介紹等內容都是存放在資料庫中的。管理員透過後台編輯後，網站就會顯示更新的內容。</li>
-                <li><strong>駭客怎麼玩？</strong> 如果網站的編輯或更新功能存在 SQL Injection 漏洞，駭客就可以注入惡意的 SQL 語句，來執行資料庫的 <code>UPDATE</code> (更新) 或 <code>DELETE</code> (刪除) 指令。</li>
-                <li><strong>發生了什麼？</strong> 駭客可以修改資料庫中儲存的網頁標題、文章內容、圖片連結等資訊。甚至可以直接刪除重要的資料，導致整個網站無法正常運作。</li>
-                <li class="example-box"><strong>後果：</strong> 網站的內容可能被惡意篡改（例如換上不雅圖片或政治宣傳），網站可能無法顯示任何內容，或者重要的數據被永久刪除，對企業形象和營運造成巨大損失。</li>
-            </ul>
-
             <p>透過這些應用舉例，你可以看到 SQL Injection 並不僅僅是一種技術名稱，它更是一把能對網站和用戶資料造成實質傷害的「武器」。了解這些潛在的危害，能讓我們更清楚為什麼防範 SQL Injection 是如此重要！</p>
+            
+            <div class="tabs-container">
+                <div class="tab-buttons"><!--標籤-->
+                    <button class="tab-button active" data-tab-id="tab1">
+                        登入繞過
+                    </button>
+                    <button class="tab-button" data-tab-id="tab2">
+                        竊取敏感資料
+                    </button>
+                    <button class="tab-button" data-tab-id="tab3">
+                        網站內容竄改或破壞
+                    </button>
+                </div>
+
+                <div id="tab1-content" class="tab-content active"><!--分頁一-->
+                    <h3>登入繞過 (Login Bypass)</h3>
+                    <ul>
+                        <li><strong>正常情況下：</strong> 當你登入網站時，你會輸入帳號和密碼。網站後台會用 SQL 語句去資料庫裡查詢：「有沒有一個帳號是 XXX，而且密碼也是 YYY 的使用者？」如果找到了，就讓你登入；找不到就顯示密碼錯誤。</li>
+                        <li><strong>駭客怎麼玩？</strong> 駭客不需要知道你的正確密碼！他們會利用 SQL Injection，在帳號或密碼欄位輸入一些特殊的符號和語句，例如輸入 <code>' OR 1=1--</code>。</li>
+                        <li><strong>發生了什麼？</strong> 當這個惡意輸入被加到原本的 SQL 語句中時，資料庫會讀到類似這樣的意思：「給我所有帳號是 XXX <strong>或者</strong> 條件 1=1 成立的使用者！」因為 <code>1=1</code> 永遠都是真的，所以資料庫就會直接回傳「是！找到了使用者！」而不需要驗證密碼。駭客就能直接登入系統，就像拿到了一把萬能鑰匙一樣。</li>
+                        <li class="example-box"><strong>後果：</strong> 駭客可以輕易進入你的帳號，或者任何沒有被妥善保護的後台系統。</li>
+                    </ul>
+                </div>
+                <div id="tab2-content" class="tab-content"><!--分頁二-->
+                    <h3>竊取敏感資料 (Stealing Sensitive Data)</h3>
+                    <ul>
+                        <li><strong>正常情況下：</strong> 網站只會顯示它設計好讓你看到的資料，例如你的個人檔案、訂單歷史等。</li>
+                        <li><strong>駭客怎麼玩？</strong> 駭客會利用前面提到的「<strong>Union-based SQL Injection</strong>」技術。他們會想辦法找到網站中的某個查詢功能，然後透過注入惡意語句，讓網站程式去執行一個額外的 SQL 查詢，這個查詢的目標是資料庫中那些存放敏感資訊的表格。</li>
+                        <li><strong>發生了什麼？</strong> 駭客可以要求資料庫回傳例如所有用戶的帳號、經過加密的密碼（稱為「雜湊值」）、電子郵件、信用卡號碼，甚至是管理員的資訊。這些敏感資料會被「混」在正常顯示的網頁內容中，或者駭客可以透過一些工具把它們提取出來。</li>
+                        <li class="example-box"><strong>後果：</strong> 你的個人隱私資訊、金融資料、遊戲道具等等都可能被盜取。這些資料可能被拿去販賣、進行詐騙，或者被用於其他的惡意行為。</li>
+                    </ul>
+                </div>
+                <div id="tab3-content" class="tab-content"><!--分頁三-->
+                    <h3>網站內容竄改或破壞 (Website Content Tampering or Defacement)</h3>
+                    <ul>
+                        <li><strong>正常情況下：</strong> 網站的新聞、部落格文章、產品介紹等內容都是存放在資料庫中的。管理員透過後台編輯後，網站就會顯示更新的內容。</li>
+                        <li><strong>駭客怎麼玩？</strong> 如果網站的編輯或更新功能存在 SQL Injection 漏洞，駭客就可以注入惡意的 SQL 語句，來執行資料庫的 <code>UPDATE</code> (更新) 或 <code>DELETE</code> (刪除) 指令。</li>
+                        <li><strong>發生了什麼？</strong> 駭客可以修改資料庫中儲存的網頁標題、文章內容、圖片連結等資訊。甚至可以直接刪除重要的資料，導致整個網站無法正常運作。</li>
+                        <li class="example-box"><strong>後果：</strong> 網站的內容可能被惡意篡改（例如換上不雅圖片或政治宣傳），網站可能無法顯示任何內容，或者重要的數據被永久刪除，對企業形象和營運造成巨大損失。</li>
+                    </ul>
+                </div>
+            </div>
+            
         </main>
     </div>
 
@@ -68,5 +83,26 @@
         <p>Copyright©毛宇禾、賴永來、曾緯淳、李欣安</p>
         <p>臺北市數位實驗高級中等學校官網：<a class="footer_link" href="https://tschool.tp.edu.tw/">https://tschool.tp.edu.tw/</a></p>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    button.classList.add('active');
+
+                    const tabId = button.dataset.tabId;
+                    const targetContent = document.getElementById(`${tabId}-content`);
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

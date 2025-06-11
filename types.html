@@ -36,7 +36,7 @@
             <p>我們來看看幾種常見的 SQL Injection 攻擊種類：</p>
 
             <div class="tabs-container">
-                <div class="tab-buttons">
+                <div class="tab-buttons"><!--標籤-->
                     <button class="tab-button active" data-tab-id="tab1">
                         In-band
                     </button>
@@ -46,54 +46,21 @@
                     <button class="tab-button" data-tab-id="tab3">
                         Out-of-band
                     </button>
-                    </div>
-
-                <div id="tab1-content" class="tab-content active">
-                    <h3>In-band SQL Injection (同通道注入攻擊)</h3>
-                    <p>這種是「最直接」的攻擊方式，也是最常見的一種。什麼叫「同通道」呢？就是駭客透過輸入欄位送出攻擊指令，而資料庫的回應（可能是錯誤訊息，或是駭客想看到的資料）也直接在同一個網頁上顯示出來。</p>
-                    <p>想像一下，你問老師一個問題，老師直接在黑板上寫出答案。這就是「同通道」。</p>
-
-                    <h4>Error-based SQL Injection (基於錯誤的注入)</h4>
-                    <ul>
-                        <li><strong>怎麼玩？</strong> 駭客故意輸入一些會讓資料庫「報錯」的內容。例如，輸入一個單引號 <code>'</code>，這在 SQL 語法中通常是不完整的，會導致資料庫出現錯誤訊息。</li>
-                        <li><strong>駭客看什麼？</strong> 資料庫在報錯時，有時候會很「熱心」地把錯誤的詳細原因也顯示出來，例如是哪個 SQL 語句出錯了，甚至不小心透露一些資料庫的結構資訊（像是資料表的名稱）。駭客就可以從這些錯誤訊息中，拼湊出他們想要的資訊。</li>
-                        <li class="example-box"><strong>像什麼？</strong> 就像你故意問老師一個很奇怪的問題，老師一邊抱怨一邊把所有相關的細節都說出來，結果你反而知道了更多。</li>
-                    </ul>
-
-                    <h4>Union-based SQL Injection (基於聯集的注入)</h4>
-                    <ul>
-                        <li><strong>怎麼玩？</strong> 駭客利用 SQL 語法中的 <code>UNION</code> (聯集) 這個指令。<code>UNION</code> 可以把兩個或更多個查詢結果「合併」在一起。駭客會構造一個惡意的 <code>UNION</code> 語句，讓它和原本正常的查詢一起執行，然後把駭客自己想看的資料也「混」到正常的結果中顯示出來。</li>
-                        <li><strong>駭客看什麼？</strong> 駭客可以透過這種方式，直接查詢資料庫中其他敏感的資料表（例如存放用戶帳號密碼的資料表），並將這些資料直接顯示在網頁上。</li>
-                        <li class="example-box"><strong>像什麼？</strong> 就像你問老師一個問題，但你偷偷在問題後面加上：「請順便告訴我，校長辦公室的門牌號碼是多少？」結果老師一併回答了，你把不該知道的資訊也套出來了。</li>
-                    </ul>
                 </div>
-                <div id="tab2-content" class="tab-content active">
-                    <h3>Blind SQL Injection (盲式注入攻擊)</h3>
-                    <p>這種攻擊就比較「陰險」了。為什麼叫「盲式」呢？因為駭客送出攻擊指令後，網頁不會直接顯示任何錯誤訊息，也不會直接回傳資料庫的查詢結果。駭客就像「盲人」一樣，無法直接看到回饋。</p>
-                    <p>那駭客怎麼知道有沒有成功呢？他們會根據網頁的「間接反應」來判斷。</p>
 
-                    <h4>Boolean-based Blind SQL Injection (基於布林值的盲式注入)</h4>
-                    <ul>
-                        <li><strong>怎麼玩？</strong> 駭客會送出帶有「判斷式」的 SQL 語句。例如，他會問資料庫一個「是非題」，像是「用戶 ID 是 1 嗎？」或「資料庫名稱的第一個字母是 'a' 嗎？」。</li>
-                        <li><strong>駭客看什麼？</strong> 網頁不會直接顯示「是」或「否」。但是，如果答案是「是」，網頁可能會正常顯示；如果答案是「否」，網頁可能會顯示空白頁面，或者某些內容會消失。駭客就根據網頁的這些「微小變化」，來判斷他問的「是非題」答案是什麼。</li>
-                        <li class="example-box"><strong>像什麼？</strong> 就像你問一個朋友問題，他不會直接回答，但如果答案是「是」，他會眨一下眼睛；如果答案是「否」，他不會眨眼睛。你得靠觀察他眨不眨眼來判斷答案。</li>
-                    </ul>
-
-                    <h4>Time-based Blind SQL Injection (基於時間的盲式注入)</h4>
-                    <ul>
-                        <li><strong>怎麼玩？</strong> 這種攻擊會更進一步。駭客會送出帶有「延遲」指令的 SQL 語句。例如，他會問資料庫：「如果資料庫名稱的第一個字母是 'a'，就請你暫停 5 秒鐘再給我回應。」</li>
-                        <li><strong>駭客看什麼？</strong> 網頁仍然不會直接顯示資料。但是，如果網頁回應的速度變慢了（例如真的等了 5 秒），那就代表他猜對了，資料庫名稱的第一個字母確實是 'a'！如果網頁很快就回應了，就代表他猜錯了。</li>
-                        <li class="example-box"><strong>像什麼？</strong> 就像你問朋友問題，他還是不說話，但如果答案是「是」，他會花比較久的時間思考再給你反應；如果答案是「否」，他會馬上給你反應。你得根據他反應的速度來判斷答案。</li>
-                    </ul>
+                <div id="tab1-content" class="tab-content active"><!--分頁一-->
+                    <h3>In-band SQL Injection</h3>
+                    <p>最簡單並最常見的攻擊種類，把惡意指令直接插入網頁輸入欄位。</p>
+                    <p>這什麼叫「In-band」呢？就是駭客透過原有輸入欄位送出攻擊指令，而資料庫回應也直接在同一個網頁上顯示出來。</p>
+                    <p>想像一下，你假借跟老師借筆的契機刻意問老師一個考題，而老師不假思索的直接在黑板上寫出答案。</p>
                 </div>
-                <div id="tab3-content" class="tab-content active">
-                    <h3>Out-of-band SQL Injection (頻外注入攻擊)</h3>
-                    <p>這種攻擊比較少見，也比較複雜，但它也很厲害。</p>
-                    <ul>
-                        <li><strong>怎麼玩？</strong> 這種攻擊是在資料庫和駭客之間建立一個「新的溝通管道」，而不是透過原本的網頁來回傳資料。駭客可能會利用資料庫的某些功能，讓資料庫主動向駭客的伺服器發送資訊（例如透過 DNS 查詢或 HTTP 請求）。</li>
-                        <li><strong>駭客看什麼？</strong> 駭客會監聽他自己的伺服器，當資料庫發送資訊過來時，他就接收到他想要的資料了。</li>
-                        <li class="example-box"><strong>像什麼？</strong> 就像你問老師問題，老師不直接回答你，而是請助教另外打電話給你，告訴你答案。</li>
-                    </ul>
+                <div id="tab2-content" class="tab-content"><!--分頁二-->
+                    <h3>Blind SQL Injection</h3>
+                    <p>當網頁沒有從資料庫直接顯示結果時，攻擊者將根據答回或時間差異判斷攻擊是否成功。</p>
+                </div>
+                <div id="tab3-content" class="tab-content"><!--分頁三-->
+                    <h3>Out-of-band SQL Injection</h3>
+                    <p>該類攻擊需要網站與其他系統有互聯（像 DNS、Email 等）才能成功執行</p>
                 </div>
             </div>
         </main>
