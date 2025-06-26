@@ -1118,9 +1118,8 @@
                         <p>在你的終端機（或 CMD）輸入以下指令，</p>
                         <p>前往 CTF 練習平台開始解題！</p>
                         <div class="command-text">
-                            docker login <br>
-                            docker pull ry4nl41/sql_injection <br>
-                            docker run ry4nl41/sql_injection
+                            docker pull ry4nl41/sql-injection<br />
+                            docker run --rm -p 5000:5000 --name sql-injection ry4nl41/sql-injection<br />
                         </div>
                         <p class="description-text">這是一串指令，輸入後會安裝映像檔，開啟就可以挑戰了！</p>
                         <a href="https://www.docker.com/get-started/?locale=zh_TW"><p class="description-text" style="color: #0060d6;">（下載Docker）</p></a>
